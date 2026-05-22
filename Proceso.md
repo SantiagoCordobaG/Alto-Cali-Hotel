@@ -543,4 +543,72 @@ Si luego quieres hacer esto en otro sitio:
 4. usa colores de marca con buen contraste
 5. recarga el navegador con fuerza si sigue apareciendo el icono anterior
 
+---
+
+## 2026-05-22 - Ajuste mobile del `Hero` para evitar que el texto se pegue a la derecha
+
+### Pedido
+Corregir la sección `Hero` para que en móviles, especialmente en iPhone 12, el contenido no quede demasiado pegado al borde derecho.
+
+### Archivo revisado y tomado como base
+- `sections/Hero.tsx`
+
+Tomé la versión actual del archivo y ajusté el layout móvil sin cambiar la dirección visual general del hero.
+
+### Archivo tocado
+- `sections/Hero.tsx`
+
+### Qué cambié
+1. Hice que el bloque principal del hero tenga un ancho máximo más controlado en móvil:
+
+```tsx
+className="w-full max-w-[22rem] sm:max-w-4xl"
+```
+
+2. Convertí el badge superior en un bloque que puede envolver contenido si hace falta:
+
+```tsx
+className="inline-flex max-w-full flex-wrap ... sm:flex-nowrap"
+```
+
+3. Reduje un poco el tamaño y el tracking del texto del badge en mobile:
+
+```tsx
+text-[11px] tracking-[0.18em] sm:text-xs sm:tracking-[0.28em]
+```
+
+4. Bajé un escalón el tamaño del `h1` en móvil y le di un ancho de lectura más controlado:
+
+```tsx
+className="max-w-[10ch] text-5xl ... sm:text-7xl"
+```
+
+5. Ajusté el párrafo para que en móvil use una escala un poco más compacta:
+
+```tsx
+className="max-w-[32rem] text-base leading-7 ... sm:text-xl"
+```
+
+### Por qué pasaba
+En pantallas estrechas, varias cosas pueden provocar que el hero “se pegue” visualmente a un borde aunque el contenedor tenga padding:
+
+- un badge `inline-flex` que no puede envolver
+- tracking muy abierto en texto corto
+- un titular demasiado grande para el ancho útil real del dispositivo
+- un bloque de contenido sin ancho máximo móvil controlado
+
+En iPhone 12 esto se nota mucho porque la pantalla no es tan ancha y el contenido hero tiene tipografía grande desde el primer render.
+
+### Cómo se hace en otros proyectos
+Cuando un hero se ve bien en desktop pero en móvil se siente apretado o desplazado, revisa esto en este orden:
+
+1. limita el ancho del bloque de contenido en mobile
+2. reduce el tamaño inicial del `h1`
+3. deja que badges o pills hagan wrap si tienen texto largo
+4. reduce tracking agresivo en pantallas pequeñas
+5. usa escalas tipográficas distintas para mobile y desktop
+
+### Regla práctica
+En un hero, no basta con tener `padding` lateral en el contenedor general. Si el contenido interno es muy ambicioso en tamaño o tracking, también necesita sus propios límites móviles.
+
 ### para que me deje hacer commit xd
