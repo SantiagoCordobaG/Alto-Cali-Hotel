@@ -486,3 +486,5 @@ En esos casos conviene:
 - o fijar un ancho claro por item
 
 En esta sección funcionó bien porque las cards ya tenían contenido relativamente compacto y consistente.
+
+### para que me deje hacer commit xd
