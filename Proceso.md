@@ -487,4 +487,60 @@ En esos casos conviene:
 
 En esta sección funcionó bien porque las cards ya tenían contenido relativamente compacto y consistente.
 
+---
+
+## 2026-05-22 - Agregar favicon para la pestaña
+
+### Pedido
+Usar como favicon de la pestaña una versión del logo de la marca.
+
+### Archivo tocado
+- `app/icon.svg`
+
+### Qué cambié
+1. Añadí el archivo especial `app/icon.svg`.
+2. Construí un icono vectorial simplificado del logo sobre fondo oscuro usando el color dorado de la marca.
+3. Lo dejé intencionalmente simple para que se lea bien en tamaño pequeño de navegador.
+
+### Cómo se hace en Next.js App Router
+En proyectos con App Router, Next reconoce automáticamente ciertos archivos especiales dentro de `app/`.
+
+Para favicon/tab icon, una de las opciones más limpias es:
+
+```text
+app/icon.svg
+```
+
+No hace falta tocar manualmente el `<head>` si usas esta convención. Next lo detecta y lo expone como icono del sitio.
+
+### Por qué usé SVG
+Para un favicon pequeño, SVG tiene varias ventajas:
+- se ve nítido en cualquier resolución
+- pesa poco
+- es fácil de ajustar en código
+- no depende de exportar un `.ico` manualmente
+
+### Regla práctica para favicons
+Cuando el logo original tiene mucho detalle, casi siempre conviene simplificarlo para favicon.
+
+Lo que sí suele funcionar:
+- un monograma
+- una silueta clara
+- un símbolo principal
+- alto contraste entre fondo y figura
+
+Lo que suele funcionar peor:
+- texto pequeño
+- detalles muy finos
+- composiciones complejas
+
+### Patrón para otros proyectos
+Si luego quieres hacer esto en otro sitio:
+
+1. toma el símbolo principal del logo
+2. simplifícalo pensando en tamaño 16x16 o 32x32
+3. crea `app/icon.svg`
+4. usa colores de marca con buen contraste
+5. recarga el navegador con fuerza si sigue apareciendo el icono anterior
+
 ### para que me deje hacer commit xd
